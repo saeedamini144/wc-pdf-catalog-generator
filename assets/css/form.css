@@ -1,0 +1,109 @@
+/* Basic RTL-friendly form styles for frontend */
+.wc-pdf-catalog-form {
+    max-width: 720px;
+    background: #fff;
+    padding: 12px;
+    border: 1px solid #e5e5e5;
+    border-radius: 4px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+    direction: rtl;
+    font-family: "DejaVu Sans", sans-serif;
+}
+
+.wc-pdf-catalog-form .wc-pdf-field {
+    margin-bottom: 10px;
+}
+
+.wc-pdf-catalog-form label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.wc-pdf-catalog-form input[type="text"],
+.wc-pdf-catalog-form input[type="email"],
+.wc-pdf-catalog-form select,
+.wc-pdf-catalog-form textarea {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    box-sizing: border-box;
+    font-size: 13px;
+}
+
+.wc-pdf-catalog-form .wc-pdf-actions {
+    margin-top: 8px;
+}
+
+.wc-pdf-catalog-form .wc-pdf-submit {
+    background: #0073aa;
+    color: #fff;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.wc-pdf-catalog-form .wc-pdf-submit:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.wc-pdf-response.wc-pdf-error {
+    color: #b00020;
+}
+
+.wc-pdf-response.wc-pdf-success {
+    color: #007a3d;
+}
+
+.wc-pdf-download-block {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+}
+
+.wc-pdf-download-link {
+    display: inline-block;
+    background: #0073aa;
+    color: #fff !important;
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 3px;
+}
+
+.wc-pdf-share-links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+}
+
+.wc-pdf-share-label {
+    color: #666;
+}
+
+.wc-pdf-share {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 3px;
+    border: 1px solid #ddd;
+    background: #fff;
+    color: #333;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.wc-pdf-share.whatsapp {
+    border-color: #25d366;
+    color: #128c3e;
+}
+
+.wc-pdf-share.telegram {
+    border-color: #0088cc;
+    color: #0088cc;
+}

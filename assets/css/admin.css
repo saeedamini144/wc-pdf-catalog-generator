@@ -1,0 +1,11 @@
+/* Admin styles for plugin pages */
+#wc-pdf-template-preview img {
+    max-width: 300px;
+    height: auto;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.table .widefat {
+    width: 100%;
+}
