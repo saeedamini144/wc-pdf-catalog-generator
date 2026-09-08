@@ -1,4 +1,4 @@
-/* Basic RTL-friendly form styles for frontend */
+/* Lead capture form styles */
 .wc-pdf-catalog-form {
     max-width: 720px;
     background: #fff;
@@ -6,12 +6,24 @@
     border: 1px solid #e5e5e5;
     border-radius: 4px;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
-    direction: rtl;
-    font-family: "DejaVu Sans", sans-serif;
+    direction: ltr;
+    text-align: left;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+.wc-pdf-catalog-form .wc-pdf-fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 12px;
 }
 
 .wc-pdf-catalog-form .wc-pdf-field {
-    margin-bottom: 10px;
+    margin: 0;
+}
+
+.wc-pdf-catalog-form .wc-pdf-field-full {
+    grid-column: 1 / -1;
 }
 
 .wc-pdf-catalog-form label {
@@ -20,8 +32,14 @@
     margin-bottom: 4px;
 }
 
+.wc-pdf-required {
+    color: #d63638;
+    font-weight: 700;
+}
+
 .wc-pdf-catalog-form input[type="text"],
 .wc-pdf-catalog-form input[type="email"],
+.wc-pdf-catalog-form input[type="tel"],
 .wc-pdf-catalog-form select,
 .wc-pdf-catalog-form textarea {
     width: 100%;
@@ -30,6 +48,28 @@
     border-radius: 3px;
     box-sizing: border-box;
     font-size: 13px;
+}
+
+.wc-pdf-catalog-form input.wc-pdf-field-error,
+.wc-pdf-catalog-form textarea.wc-pdf-field-error {
+    border-color: #d63638 !important;
+    box-shadow: 0 0 0 1px rgba(214, 54, 56, 0.3);
+}
+
+.wc-pdf-form-errors {
+    display: none;
+    background: #fcf0f1;
+    border: 1px solid #d63638;
+    border-radius: 6px;
+    color: #8a1f21;
+    padding: 10px 14px;
+    margin-bottom: 12px;
+    font-size: 13px;
+}
+
+.wc-pdf-form-errors ul {
+    margin: 0;
+    padding-left: 18px;
 }
 
 .wc-pdf-catalog-form .wc-pdf-actions {
@@ -50,12 +90,16 @@
     cursor: not-allowed;
 }
 
-.wc-pdf-response.wc-pdf-error {
-    color: #b00020;
+/* Success box shown after a completed submission */
+.wc-pdf-success-box {
+    direction: ltr;
+    text-align: left;
 }
 
-.wc-pdf-response.wc-pdf-success {
+.wc-pdf-success-message {
+    font-size: 14px;
     color: #007a3d;
+    margin: 0 0 10px;
 }
 
 .wc-pdf-download-block {
@@ -72,6 +116,7 @@
     text-decoration: none;
     padding: 8px 16px;
     border-radius: 3px;
+    font-weight: 600;
 }
 
 .wc-pdf-share-links {
@@ -79,31 +124,115 @@
     flex-wrap: wrap;
     align-items: center;
     gap: 8px;
-    font-size: 12px;
+    margin-top: 10px;
 }
 
 .wc-pdf-share-label {
     color: #666;
+    font-size: 13px;
+    width: 100%;
+    margin-bottom: 2px;
 }
 
 .wc-pdf-share {
     display: inline-block;
-    padding: 5px 10px;
-    border-radius: 3px;
-    border: 1px solid #ddd;
-    background: #fff;
-    color: #333;
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: none;
+    background: #f1f1f1;
+    color: #222;
     text-decoration: none;
     cursor: pointer;
-    font-size: 12px;
+    font-size: 13px;
 }
 
 .wc-pdf-share.whatsapp {
-    border-color: #25d366;
-    color: #128c3e;
+    background: #25d366;
+    color: #fff;
 }
 
 .wc-pdf-share.telegram {
-    border-color: #0088cc;
-    color: #0088cc;
+    background: #0088cc;
+    color: #fff;
+}
+
+.wc-pdf-share.email {
+    background: #555;
+    color: #fff;
+}
+
+/* ------------------------------------------------------------------
+ * Lead form popup (modal): floating overlay with a smooth fade + scale effect
+ * ------------------------------------------------------------------ */
+
+body.wc-pdf-modal-open {
+    overflow: hidden;
+}
+
+.wc-pdf-modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 100000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(20, 20, 20, 0.55);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.28s ease;
+    box-sizing: border-box;
+}
+
+.wc-pdf-modal-overlay.is-open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.wc-pdf-modal {
+    position: relative;
+    width: 100%;
+    max-width: 480px;
+    max-height: 90vh;
+    overflow-y: auto;
+    background: #fff;
+    border-radius: 8px;
+    padding: 34px 24px 20px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+    transform: translateY(-16px) scale(0.96);
+    opacity: 0;
+    transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.28s ease;
+}
+
+.wc-pdf-modal-overlay.is-open .wc-pdf-modal {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+}
+
+.wc-pdf-modal-close {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 32px;
+    height: 32px;
+    line-height: 1;
+    background: transparent;
+    border: none;
+    border-radius: 50%;
+    font-size: 22px;
+    color: #444;
+    cursor: pointer;
+    padding: 0;
+}
+
+.wc-pdf-modal-close:hover {
+    background: #f1f1f1;
+    color: #222;
+}
+
+.wc-pdf-modal-body .wc-pdf-catalog-form {
+    max-width: 100%;
+    padding: 0;
+    border: none;
+    box-shadow: none;
 }

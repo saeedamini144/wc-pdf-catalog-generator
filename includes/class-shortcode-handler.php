@@ -58,7 +58,6 @@ class Shortcode_Handler {
                 <button type="button" class="wc-pdf-catalog-btn" data-category="<?php echo esc_attr( $category ); ?>" data-nonce="<?php echo esc_attr( $nonce ); ?>">
                     <?php echo esc_html( $label ); ?>
                 </button>
-                <div class="wc-pdf-catalog-container"></div>
             </div>
             <?php
         }

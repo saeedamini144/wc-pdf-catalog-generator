@@ -1,4 +1,6 @@
 <?php
+namespace WC_PDF_Catalog;
+
 /**
  * templates/admin-settings-page.php
  *
@@ -70,31 +72,4 @@ $template_url = $template_id ? wp_get_attachment_image_url( $template_id, 'mediu
         <?php submit_button(); ?>
     </form>
 </div>
-
-<script>
-(function($){
-    // این اسکریپت ساده از wp.media برای انتخاب تصویر استفاده می‌کند.
-    var frame;
-    $('#wc-pdf-template-upload').on('click', function(e){
-        e.preventDefault();
-        if ( frame ) { frame.open(); return; }
-        frame = wp.media({
-            title: '<?php echo esc_js( __( 'Select PDF template image', 'wc-pdf-catalog' ) ); ?>',
-            button: { text: '<?php echo esc_js( __( 'Select', 'wc-pdf-catalog' ) ); ?>' },
-            multiple: false
-        });
-        frame.on('select', function(){
-            var attachment = frame.state().get('selection').first().toJSON();
-            $('#wc_pdf_template_id').val(attachment.id);
-            $('#wc-pdf-template-preview').html('<img src="'+attachment.sizes.medium.url+'" style="max-width:300px;height:auto;">');
-        });
-        frame.open();
-    });
-
-    $('#wc-pdf-template-remove').on('click', function(e){
-        e.preventDefault();
-        $('#wc_pdf_template_id').val('');
-        $('#wc-pdf-template-preview').html('');
-    });
-})(jQuery);
-</script>
+<?php // منطق انتخاب تصویر (wp.media) در assets/js/admin.js پیاده‌سازی شده و از طریق Assets_Loader::enqueue_admin() لود می‌شود ?>

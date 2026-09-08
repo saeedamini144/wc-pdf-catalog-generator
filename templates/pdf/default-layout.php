@@ -11,11 +11,11 @@
  * قالب پی‌دی‌اف: اگر ادمین یک تصویر قالب (کاور از پیش طراحی‌شده) در تنظیمات آپلود کرده باشد،
  * آن تصویر به‌عنوان پس‌زمینه تمام‌صفحه روی همه صفحات تکرار می‌شود و محتوای محصولات
  * (تصویر اصلی، عنوان، قیمت، ویژگی‌ها) با پس‌زمینه نیمه‌شفاف روی آن قرار می‌گیرد.
- * این قالب RTL است و از فونت DejaVu Sans به‌عنوان پیش‌فرض استفاده می‌کند.
+ * محتوای کاتالوگ چپ‌چین (LTR) است و از فونت DejaVu Sans به‌عنوان پیش‌فرض استفاده می‌کند.
  */
 ?>
 <!doctype html>
-<html lang="fa">
+<html lang="fa" dir="ltr">
 <head>
     <meta charset="utf-8">
     <style>
@@ -23,7 +23,8 @@
         * { box-sizing: border-box; }
         body {
             font-family: "DejaVu Sans", sans-serif;
-            direction: rtl;
+            direction: ltr;
+            text-align: left;
             font-size: 12px;
             color: #222;
             line-height: 1.3;
@@ -61,7 +62,7 @@
             width: 120px;
             height: auto;
             object-fit: contain;
-            margin-left: 12px;
+            margin-right: 12px;
             border: 1px solid #ddd;
             padding: 4px;
             background: #fff;

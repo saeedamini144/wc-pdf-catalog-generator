@@ -19,6 +19,20 @@ class Plugin_Loader {
      */
     protected $includes_dir;
 
+    /**
+     * نمونه‌های ماژول‌ها (برای جلوگیری از هشدار dynamic property در PHP 8.2+)
+     */
+    protected $wc_data;
+    protected $pdf_template;
+    protected $pdf_generator;
+    protected $download_controller;
+    protected $form_handler;
+    protected $form_ajax;
+    protected $shortcode_handler;
+    protected $admin_settings;
+    protected $admin_requests;
+    protected $admin_help;
+
     public function __construct() {
         $this->includes_dir = WC_PDF_CATALOG_PLUGIN_DIR . 'includes/';
     }
@@ -80,6 +94,7 @@ class Plugin_Loader {
             'class-shortcode-handler.php',     // شورت‌کد دکمه/آرشیو
             'class-admin-settings.php',        // صفحه تنظیمات پلاگین
             'class-admin-requests-list.php',   // صفحه لیست درخواست‌ها در ادمین
+            'class-admin-help.php',            // صفحه راهنما (توضیح عملکرد و شورت‌کدها)
             // در آینده می‌توان ماژول‌های دیگر را اینجا اضافه کرد
         ];
 
@@ -163,6 +178,11 @@ class Plugin_Loader {
         // Admin requests list (لیست ارسال‌ها)
         if ( class_exists( '\\WC_PDF_Catalog\\Admin_Requests_List' ) ) {
             $this->admin_requests = new Admin_Requests_List();
+        }
+
+        // Admin help page (راهنمای عملکرد پلاگین و شورت‌کدها)
+        if ( class_exists( '\\WC_PDF_Catalog\\Admin_Help' ) ) {
+            $this->admin_help = new Admin_Help();
         }
     }
 

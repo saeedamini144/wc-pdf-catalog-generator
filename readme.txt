@@ -4,7 +4,7 @@ Tags: woocommerce, pdf, catalog, lead-generation, product-catalog
 Requires at least: 5.0
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.1.0
+Stable tag: 1.3.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -25,7 +25,8 @@ Every submission is stored and visible to admins under **PDF Catalog → Request
 
 * `[wc_pdf_catalog]` shortcode — shows a button that opens the lead form; auto-detects the current product category when placed on a category archive page.
 * `[wc_pdf_catalog_form]` shortcode — the lead form on its own (generates a catalog of all products when used standalone).
-* PDF generation via Dompdf, with RTL/Persian support (DejaVu Sans).
+* PDF generation via Dompdf, with Persian-capable font (DejaVu Sans); catalog content is laid out left-to-right (LTR).
+* The lead form opens in an animated popup (fade + scale) instead of pushing page content down.
 * Admin-uploadable full-page PDF background/template image.
 * Toggle price and attributes visibility from Settings.
 * Admin requests list with pagination and secure delete.
@@ -52,6 +53,22 @@ Yes — pass `category="your-category-slug"` to the shortcode, or simply place t
 No. Generating a PDF always requires a successfully validated form submission; this is enforced on the server, not just in the browser.
 
 == Changelog ==
+
+= 1.3.0 =
+* Reworked the lead form into a two-column layout, with a boxed, bulleted error summary at the top of the form (instead of per-field inline messages) and red-highlighted invalid fields — matching the site's other WooCommerce forms.
+* On success, the form is now replaced by a confirmation message plus the download button and share links (WhatsApp, Telegram, Email, copy link), instead of appending a small response line.
+* All lead form text (labels, validation, buttons, success/share messages) and the admin Help page are now in English.
+* The standalone `[wc_pdf_catalog_form]` shortcode now uses the same layout, error handling and success behavior as the popup form (it previously had no way to display validation errors).
+
+= 1.2.0 =
+* Fixed a critical error when opening Settings / uploading the PDF template image (a template file was missing its PHP namespace, causing "Class Admin_Settings not found").
+* Fixed the vendor autoloader collision that could fatal-error activation when another Composer-based plugin shared the same generated class name.
+* Fixed PHP 8.2 "dynamic property" deprecation notices in the plugin loader.
+* Fixed an incorrect script dependency ("wp-media") that triggered a WordPress notice; now uses `wp_enqueue_media()` correctly, loaded only where needed.
+* The lead form now opens in a popup (modal) with a smooth fade + scale animation instead of being injected inline under the button.
+* PDF catalog content is now laid out left-to-right (LTR) instead of right-to-left.
+* Added a "Help & Shortcodes" page under the plugin's admin menu explaining how the plugin works and documenting the shortcodes.
+* Security review: confirmed all database queries use `$wpdb->prepare()` / parameterized `insert`/`update` calls, all AJAX/admin-post actions verify nonces and capabilities, and all dynamic output is escaped.
 
 = 1.1.0 =
 * Removed the "generate without form" bypass — the lead form is now always required before a PDF is generated, per the intended flow.

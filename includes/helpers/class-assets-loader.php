@@ -46,13 +46,18 @@ class Assets_Loader {
             wp_enqueue_style( 'wc-pdf-catalog-admin', $admin_css, [], WC_PDF_CATALOG_VERSION );
         }
 
-        $admin_js = WC_PDF_CATALOG_PLUGIN_URL . 'assets/js/admin.js';
-        if ( file_exists( WC_PDF_CATALOG_PLUGIN_DIR . 'assets/js/admin.js' ) ) {
-            wp_enqueue_script( 'wc-pdf-catalog-admin', $admin_js, [ 'jquery', 'wp-media' ], WC_PDF_CATALOG_VERSION, true );
-            wp_localize_script( 'wc-pdf-catalog-admin', 'WCPDFAdmin', [
-                'media_title' => __( 'Select PDF template image', 'wc-pdf-catalog' ),
-                'nonce'       => wp_create_nonce( 'wc_pdf_catalog_admin_nonce' ),
-            ] );
+        // انتخابگر رسانه (wp.media) فقط در صفحه تنظیمات لازم است، نه در صفحه لیست درخواست‌ها
+        if ( 'toplevel_page_wc-pdf-catalog' === $hook ) {
+            wp_enqueue_media();
+
+            $admin_js = WC_PDF_CATALOG_PLUGIN_URL . 'assets/js/admin.js';
+            if ( file_exists( WC_PDF_CATALOG_PLUGIN_DIR . 'assets/js/admin.js' ) ) {
+                wp_enqueue_script( 'wc-pdf-catalog-admin', $admin_js, [ 'jquery' ], WC_PDF_CATALOG_VERSION, true );
+                wp_localize_script( 'wc-pdf-catalog-admin', 'WCPDFAdmin', [
+                    'media_title' => __( 'Select PDF template image', 'wc-pdf-catalog' ),
+                    'nonce'       => wp_create_nonce( 'wc_pdf_catalog_admin_nonce' ),
+                ] );
+            }
         }
     }
 }

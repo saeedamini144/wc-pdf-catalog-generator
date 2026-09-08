@@ -3,6 +3,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 ?>
+<?php // با کلیک روی دکمه، فرم لید (نام/ایمیل/تلفن...) به‌صورت پاپ‌آپ با افکت نرم باز می‌شود و تنها پس از تکمیل موفق آن، فایل PDF ساخته می‌شود. ?>
 <div class="wc-pdf-catalog-wrapper">
     <button type="button"
             class="wc-pdf-catalog-btn"
@@ -10,7 +11,4 @@ if ( ! defined( 'ABSPATH' ) ) {
             data-nonce="<?php echo esc_attr( $nonce ); ?>">
         <?php echo esc_html( $label ); ?>
     </button>
-
-    <?php // با کلیک روی دکمه، فرم لید بالا (نام/ایمیل/تلفن...) به‌صورت پاپ‌آپ نمایش داده می‌شود و تنها پس از تکمیل موفق آن، فایل PDF ساخته می‌شود. ?>
-    <div class="wc-pdf-catalog-container" style="margin-top:12px;"></div>
 </div>

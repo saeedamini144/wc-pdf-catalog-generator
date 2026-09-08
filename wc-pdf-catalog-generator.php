@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce PDF Catalog Generator
  * Plugin URI:  saaed.amini@gmail.com
  * Description: Generate WooCommerce product PDF catalogs with a custom lead form and admin listing.
- * Version:     1.1.0
+ * Version:     1.3.0
  * Author:      Saeed Amini
  * Author URI:  saaed.amini@gmail.com
  * Text Domain: wc-pdf-catalog
@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * تعریف کانستنت‌ها
  */
-define( 'WC_PDF_CATALOG_VERSION', '1.1.0' );
+define( 'WC_PDF_CATALOG_VERSION', '1.3.0' );
 define( 'WC_PDF_CATALOG_PLUGIN_FILE', __FILE__ );
 define( 'WC_PDF_CATALOG_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'WC_PDF_CATALOG_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
