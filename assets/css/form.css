@@ -14,8 +14,8 @@
 .wc-pdf-catalog-form .wc-pdf-fields {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    margin-bottom: 12px;
+    gap: 20px 24px;
+    margin-bottom: 20px;
 }
 
 .wc-pdf-catalog-form .wc-pdf-field {
@@ -29,7 +29,8 @@
 .wc-pdf-catalog-form label {
     display: block;
     font-weight: 600;
-    margin-bottom: 4px;
+    margin-bottom: 8px;
+    font-size: 15px;
 }
 
 .wc-pdf-required {
@@ -40,14 +41,15 @@
 .wc-pdf-catalog-form input[type="text"],
 .wc-pdf-catalog-form input[type="email"],
 .wc-pdf-catalog-form input[type="tel"],
+.wc-pdf-catalog-form input[type="number"],
 .wc-pdf-catalog-form select,
 .wc-pdf-catalog-form textarea {
     width: 100%;
-    padding: 8px 10px;
+    padding: 12px 14px;
     border: 1px solid #ddd;
-    border-radius: 3px;
+    border-radius: 4px;
     box-sizing: border-box;
-    font-size: 13px;
+    font-size: 15px;
 }
 
 .wc-pdf-catalog-form input.wc-pdf-field-error,
@@ -80,8 +82,10 @@
     background: #0073aa;
     color: #fff;
     border: none;
-    padding: 8px 14px;
-    border-radius: 3px;
+    padding: 12px 24px;
+    border-radius: 4px;
+    font-size: 15px;
+    font-weight: 600;
     cursor: pointer;
 }
 
@@ -192,16 +196,20 @@ body.wc-pdf-modal-open {
 .wc-pdf-modal {
     position: relative;
     width: 100%;
-    max-width: 480px;
-    max-height: 90vh;
+    max-width: 720px;
+    max-height: 85vh;
     overflow-y: auto;
     background: #fff;
     border-radius: 8px;
-    padding: 34px 24px 20px;
+    padding: 18px;
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
     transform: translateY(-16px) scale(0.96);
     opacity: 0;
     transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.28s ease;
+}
+
+.wc-pdf-modal-body {
+    padding-top: 34px;
 }
 
 .wc-pdf-modal-overlay.is-open .wc-pdf-modal {
