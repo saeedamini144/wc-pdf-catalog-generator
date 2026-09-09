@@ -33,10 +33,19 @@
         return { errors: errors, fields: fields };
     }
 
+    // escape a string for safe insertion into an HTML attribute
+    function escapeAttr(value) {
+        return String(value || '')
+            .replace(/&/g, '&amp;')
+            .replace(/"/g, '&quot;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;');
+    }
+
     // build the lead form HTML that must be completed before the PDF is generated
-    function buildInlineForm(nonce, category) {
+    function buildInlineForm(nonce, category, filters) {
         var html = '';
-        html += '<form class="wc-pdf-catalog-form" method="post" action="#" data-nonce="' + nonce + '" data-category="' + (category || '') + '">';
+        html += '<form class="wc-pdf-catalog-form" method="post" action="#" data-nonce="' + escapeAttr(nonce) + '" data-category="' + escapeAttr(category) + '" data-filters="' + escapeAttr(filters) + '">';
         html += '<div class="wc-pdf-form-errors"></div>';
         html += '<div class="wc-pdf-fields">';
         html += '<div class="wc-pdf-field"><label>First Name <span class="wc-pdf-required">*</span></label><input type="text" name="first_name" required></div>';
@@ -142,8 +151,12 @@
         var $btn = $(this);
         var category = $btn.data('category') || '';
         var nonce = $btn.data('nonce') || WCPDFCatalog.nonce_form;
+        // carry over any shop/category attribute, price or rating filters currently applied
+        // in the page URL (e.g. ?filter_color=red&min_price=10) so the catalog only
+        // includes the products the visitor is actually seeing.
+        var filters = window.location.search ? window.location.search.substring(1) : '';
 
-        var formHtml = buildInlineForm( nonce, category );
+        var formHtml = buildInlineForm( nonce, category, filters );
         openModal( formHtml );
     });
 
@@ -177,6 +190,7 @@
         var $form = $(this);
         var nonce = $form.data('nonce') || WCPDFCatalog.nonce_form;
         var category = $form.data('category') || '';
+        var filters = $form.data('filters') || '';
 
         var formData = {
             first_name: $form.find('[name="first_name"]').val(),
@@ -204,6 +218,7 @@
             action: 'wc_pdf_catalog_submit_form',
             nonce: nonce,
             category: category,
+            filters: filters,
             first_name: formData.first_name,
             last_name: formData.last_name,
             email: formData.email,

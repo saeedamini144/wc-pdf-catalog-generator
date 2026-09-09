@@ -60,18 +60,12 @@ class Form_Ajax {
         // category اختیاری (اگر فرم یا شورت‌کد آن را ارسال کند) - به‌صورت اسلاگ تاکسونومی پاک‌سازی می‌شود
         $category = isset( $_POST['category'] ) ? sanitize_title( wp_unslash( $_POST['category'] ) ) : '';
 
-        // گرفتن محصولات
+        // فیلترهای اعمال‌شده در صفحه شاپ/دسته‌بندی (ویژگی، قیمت، امتیاز) - رشته کوئری خام صفحه
+        $filters = isset( $_POST['filters'] ) ? sanitize_text_field( wp_unslash( $_POST['filters'] ) ) : '';
+
+        // گرفتن محصولات (فقط همان محصولاتی که با فیلترهای فعلی صفحه مطابقت دارند)
         $wc = new WooCommerce_Data();
-        $args = [];
-        if ( $category ) {
-            $args['tax_query'] = [
-                [
-                    'taxonomy' => 'product_cat',
-                    'field'    => 'slug',
-                    'terms'    => $category,
-                ],
-            ];
-        }
+        $args = $wc->build_filtered_query_args( $category, $filters );
         $products = $wc->get_products( $args );
 
         if ( empty( $products ) ) {
