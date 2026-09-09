@@ -62,7 +62,7 @@ class WooCommerce_Data {
         $image_id = $product->get_image_id();
         $image_url = $image_id ? wp_get_attachment_image_url( $image_id, 'medium' ) : '';
 
-        $price_html = $product->get_price_html();
+        $price_html = $this->strip_screen_reader_price_text( $product->get_price_html() );
         $regular = $product->get_regular_price();
         $sale = $product->get_sale_price();
 
@@ -80,6 +80,24 @@ class WooCommerce_Data {
             'image'         => esc_url( $image_url ),
             'attributes'    => $attributes,
         ];
+    }
+
+    /**
+     * WooCommerce's get_price_html() adds visually-hidden
+     * "Original price was: X. Current price is: Y." text (via
+     * .screen-reader-text spans) for accessibility. That CSS class is
+     * normally hidden by the theme, but the PDF renderer doesn't load
+     * theme styles, so the text renders visibly and duplicates the price.
+     * Strip it out before it reaches the PDF template.
+     *
+     * @param string $price_html
+     * @return string
+     */
+    protected function strip_screen_reader_price_text( $price_html ) {
+        if ( ! $price_html ) {
+            return $price_html;
+        }
+        return preg_replace( '#<span[^>]*class="[^"]*screen-reader-text[^"]*"[^>]*>.*?</span>#si', '', $price_html );
     }
 
     /**
